@@ -3,6 +3,7 @@ from datetime import datetime
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 
 from zc.lockfile import LockError, LockFile
 import pytz
@@ -54,6 +55,15 @@ def send_email(to, subject, content):
     s.login(GMAIL_USERNAME, GMAIL_PASSWORD)
     s.sendmail(GMAIL_USERNAME, to, msg.as_string())
     s.quit()
+
+
+def list_of_files(path: str) -> list:
+    path_obj = Path(path)
+    return [item.name for item in path_obj.iterdir() if item.is_file()]
+
+
+def rsync(source_path: str, destination_path: str):
+    my_sh.rsync("-rahtze", "ssh", "--progress", source_path, destination_path)
 
 
 if __name__ == '__main__':
