@@ -4,7 +4,22 @@ python version: 3.6.8
 
 ### setup
 
-- create virtual env with python-v3.6
-    ```
+- install pip
 
-    ```
+    `sudo apt install python3-pip`
+
+- install python-vritualenv:
+
+    `sudo pip3 install virtualenv`
+
+- create virtualenv:
+
+    `virtualenv -p /usr/bin/python3.6 venv`
+
+- activate venv:
+
+    `source venv/bin/activate`
+
+- install packages:
+
+    `pip install -r requirements.txt`
