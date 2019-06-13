@@ -1,10 +1,18 @@
 from contextlib import contextmanager
 from datetime import datetime
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from zc.lockfile import LockError, LockFile
 import pytz
+import sh
 
 from configs import START_HOUR, STOP_HOUR, DEBUG
+from secrets import GMAIL_PASSWORD, GMAIL_USERNAME
+
+
+my_sh = sh(_env={"PATH": "/usr/local/bin:/bin:/usr/bin"})
 
 
 @contextmanager
@@ -29,6 +37,23 @@ def is_valid_interval():
     else:
         print("It's not good time to sync files! :)")
         exit()
+
+
+def send_email(to, subject, content):
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = subject
+    msg['From'] = GMAIL_USERNAME
+    msg['To'] = to
+
+    part = MIMEText(content, 'plain')
+    msg.attach(part)
+
+    s = smtplib.SMTP('smtp.gmail.com:587')
+    s.ehlo()
+    s.starttls()
+    s.login(GMAIL_USERNAME, GMAIL_PASSWORD)
+    s.sendmail(GMAIL_USERNAME, to, msg.as_string())
+    s.quit()
 
 
 if __name__ == '__main__':

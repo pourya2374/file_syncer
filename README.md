@@ -23,3 +23,6 @@ python version: 3.6.8
 - install packages:
 
     `pip install -r requirements.txt`
+
+- copy `sample_secrets.py` and rename it to `secrets.py`, then fill it with your own secrets.
+

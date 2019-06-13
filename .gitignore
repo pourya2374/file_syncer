@@ -2,3 +2,4 @@ venv
 .idea
 file_syncer.lock
 __pycache__
+secrets.py
