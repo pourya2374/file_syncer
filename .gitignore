@@ -1,2 +1,4 @@
 venv
 .idea
+file_syncer.lock
+__pycache__
