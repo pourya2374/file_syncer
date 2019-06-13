@@ -1,2 +1,3 @@
+pytz==2019.1
 sh==1.12.14
 zc.lockfile==1.4

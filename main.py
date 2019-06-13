@@ -1,9 +1,5 @@
-from utils import lock_instance
-
-from time import sleep
+from utils import lock_instance, is_valid_interval
 
 
 with lock_instance():
-    while True:
-        print('hello')
-        sleep(1)
+    is_valid_interval()
