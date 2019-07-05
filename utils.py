@@ -57,9 +57,10 @@ def send_email(to, subject, content):
     s.quit()
 
 
-def list_of_files(path: str) -> list:
+def list_files_with_size(path: str) -> list:
     path_obj = Path(path)
-    return [item.name for item in path_obj.iterdir() if item.is_file()]
+    return [(i+1, item.name, '{0:.2f} MB'.format(item.stat().st_size / 10**6))
+            for i, item in enumerate(path_obj.iterdir()) if item.is_file()]
 
 
 def rsync(source_path: str, destination_path: str):

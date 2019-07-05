@@ -1,4 +1,4 @@
-from utils import lock_instance, is_valid_interval, send_email, list_of_files, rsync
+from utils import lock_instance, is_valid_interval, send_email, list_files_with_size, rsync
 from configs import SERVER_NAME, SERVER_PATH, LOCAL_PATH
 
 
@@ -10,5 +10,12 @@ with lock_instance():
         LOCAL_PATH
     )
 
-    file_names = list_of_files(LOCAL_PATH)
-    send_email('poury.ms@gmail.com', 'Sync home with server', 'Downloaded list: \n\n{}'.format('\n'.join(file_names)))
+    files = list_files_with_size(LOCAL_PATH)
+    msg = ''
+    for file in files:
+        msg += '\n{}. {} -> {}'.format(*file)
+    send_email(
+        'poury.ms@gmail.com',
+        'Sync home with server',
+        'Downloaded list: \n{}'.format(msg)
+    )
