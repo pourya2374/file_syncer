@@ -3,3 +3,4 @@ venv
 file_syncer.lock
 __pycache__
 secrets.py
+content_hash.txt

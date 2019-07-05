@@ -1,6 +1,8 @@
 from contextlib import contextmanager
 from datetime import datetime
 import smtplib
+import hashlib
+import json
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -67,6 +69,22 @@ def rsync(source_path: str, destination_path: str):
     my_sh.rsync("-rahtze", "ssh", "--progress", source_path, destination_path)
 
 
+def is_changed(content: str) -> bool:
+    hash = hashlib.sha1(content.encode()).hexdigest()
+    file_name = 'content_hash.txt'
+    try:
+        with open(file_name, 'r') as hash_file:
+            current_hash = hash_file.readline().strip()
+            if current_hash == hash:
+                return False
+    except FileNotFoundError:
+        pass
+    with open(file_name, 'w') as hash_file:
+        hash_file.write(hash)
+    return True
+
+
 if __name__ == '__main__':
     # for testing purpose
+    print(is_changed('tes12'))
     pass
