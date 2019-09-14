@@ -26,6 +26,6 @@ python version: 3.6.8
 
 - copy `sample_secrets.py` and rename it to `secrets.py`, then fill it with your own secrets.
 
-### todo
+### persian tutorial
 
-- at first, check changes, then send email!
+http://vrgl.ir/tnNzD
